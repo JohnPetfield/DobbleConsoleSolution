@@ -34,9 +34,23 @@ namespace DobbleConsoleProject
                 }
             }
 
+            Console.WriteLine("overallImageIndex: " + overallImageIndex);
+
+            createUniqueSymbolForVanishingPoints(vanishingPoints, overallImageIndex);
+
             // add vanishing point to final list of cards
             returnDeck.AddRange(vanishingPoints);
+            dispCards(n, Cards,vanishingPoints);
             return returnDeck;
+        }
+
+        void createUniqueSymbolForVanishingPoints(List<Card> vanishingPoints, int overallImageIndex)
+        {
+            // overallImageIndex has been incremented and not been used
+            foreach(Card c in vanishingPoints)
+            {
+                c.imageIndexs.Add(overallImageIndex);
+            }
         }
 
         void initialiseCardList(int _n, Card[,] _cards)

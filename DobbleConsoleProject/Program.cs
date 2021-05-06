@@ -8,6 +8,9 @@ namespace DobbleConsoleProject
     /// 
     /// Dobble has n = 7 grid
     /// 8 symbols on a card
+    /// 
+    /// 57 total symbols
+    /// 
     /// 7 * 7 = 49 cards
     /// there are n + 1 vanishing points (8),
     /// so total Cards possible = 49 + 8 = 57
@@ -16,6 +19,7 @@ namespace DobbleConsoleProject
     /// meaning here are 2 possible cards to find
     /// and create to add to Dobble
     /// </summary>
+    /*
     class Program
     {
         static void Main(string[] args)
@@ -28,4 +32,5 @@ namespace DobbleConsoleProject
             Console.WriteLine("no. cards in deck: " + deck.Count);
         }
     }
+    */
 }
