@@ -19,18 +19,21 @@ namespace DobbleConsoleProject
     /// meaning here are 2 possible cards to find
     /// and create to add to Dobble
     /// </summary>
-    /*
+    
     class Program
     {
+        /*
         static void Main(string[] args)
         {
             int n = 7;
 
             Dobble dobble = new Dobble(n);
-            List<Card> deck = dobble.createDeck();
+            //List<Card> deck = dobble.createDeck();
+            List<Card> deck = dobble.createShuffledDeck();
 
             Console.WriteLine("no. cards in deck: " + deck.Count);
         }
+        */
     }
-    */
+    
 }

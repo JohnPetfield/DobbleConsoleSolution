@@ -18,6 +18,27 @@ namespace DobbleConsoleProject
             Cards =  new Card[n, n];
             //createDeck(n);
         }
+
+        public List<Card> createShuffledDeck()
+        {
+            Random random = new Random();
+
+            List<Card> deck = this.createDeck();
+
+            /// https://forum.unity.com/threads/randomize-array-in-c.86871/
+            // Knuth shuffle algorithm :: courtesy of Wikipedia :)
+            for (int t = 0; t < deck.Count; t++)
+            {
+                Card tmp = deck[t];
+                //int r = Random.Range(t, texts.Length);
+                int r = random.Next(t, deck.Count - 1);
+                deck[t] = deck[r];
+                deck[r] = tmp;
+            }
+
+            return deck;
+        }
+
         public List<Card> createDeck()
         {
             createCards(n, Cards, ref overallImageIndex, vanishingPoints);
