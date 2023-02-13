@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DobbleConsoleProject
 {
+    // This project is now a class library (program.cs no longer required)
     public class Dobble
     {
         public int n;
@@ -16,21 +16,18 @@ namespace DobbleConsoleProject
         {
             n = _n;
             Cards =  new Card[n, n];
-            //createDeck(n);
         }
 
-        public List<Card> createShuffledDeck()
+        public List<Card> CreateShuffledDeck()
         {
             Random random = new Random();
-
-            List<Card> deck = this.createDeck();
+            List<Card> deck = CreateDeck();
 
             /// https://forum.unity.com/threads/randomize-array-in-c.86871/
-            // Knuth shuffle algorithm :: courtesy of Wikipedia :)
+            // Knuth shuffle algorithm
             for (int t = 0; t < deck.Count; t++)
             {
                 Card tmp = deck[t];
-                //int r = Random.Range(t, texts.Length);
                 int r = random.Next(t, deck.Count - 1);
                 deck[t] = deck[r];
                 deck[r] = tmp;
@@ -39,10 +36,9 @@ namespace DobbleConsoleProject
             return deck;
         }
 
-        public List<Card> createDeck()
+        public List<Card> CreateDeck()
         {
-            createCards(n, Cards, ref overallImageIndex, vanishingPoints);
-            //dispCards(n, Cards, vanishingPoints);
+            CreateCards(n, Cards, ref overallImageIndex, vanishingPoints);
 
             List<Card> returnDeck = new List<Card>();
 
@@ -55,17 +51,16 @@ namespace DobbleConsoleProject
                 }
             }
 
-            Console.WriteLine("overallImageIndex: " + overallImageIndex);
-
-            createUniqueSymbolForVanishingPoints(vanishingPoints, overallImageIndex);
+            CreateUniqueSymbolForVanishingPoints(vanishingPoints, overallImageIndex);
 
             // add vanishing point to final list of cards
             returnDeck.AddRange(vanishingPoints);
-            dispCards(n, Cards,vanishingPoints);
+            DispCards(n, Cards,vanishingPoints);
+
             return returnDeck;
         }
 
-        void createUniqueSymbolForVanishingPoints(List<Card> vanishingPoints, int overallImageIndex)
+        void CreateUniqueSymbolForVanishingPoints(List<Card> vanishingPoints, int overallImageIndex)
         {
             // overallImageIndex has been incremented and not been used
             foreach(Card c in vanishingPoints)
@@ -74,7 +69,7 @@ namespace DobbleConsoleProject
             }
         }
 
-        void initialiseCardList(int _n, Card[,] _cards)
+        void InitialiseCardList(int _n, Card[,] _cards)
         {
             int n = _n;
             Card[,] inpCards = _cards;
@@ -88,29 +83,29 @@ namespace DobbleConsoleProject
             }
         }
 
-         void createCards(int _n, Card[,] _cards, ref int overallImageIndex, List<Card> vanishingPoints)
+        void CreateCards(int _n, Card[,] _cards, ref int overallImageIndex, List<Card> vanishingPoints)
         {
-            initialiseCardList(_n, _cards);
+            InitialiseCardList(_n, _cards);
 
             /// Horizontal line
-            applyVector(_n, _cards, new Vector(1, 0), ref overallImageIndex, false, vanishingPoints);
+            ApplyVector(_n, _cards, new Vector(1, 0), ref overallImageIndex, false, vanishingPoints);
             /// Vertical line
-            applyVector(_n, _cards, new Vector(0, 1), ref overallImageIndex, true, vanishingPoints);
+            ApplyVector(_n, _cards, new Vector(0, 1), ref overallImageIndex, true, vanishingPoints);
 
             /// All Diagonal lines
             for (int noDiag = 1; noDiag < _n; noDiag++)
             {
-                applyVector(_n, _cards, new Vector(noDiag, 1), ref overallImageIndex, false, vanishingPoints);
+                ApplyVector(_n, _cards, new Vector(noDiag, 1), ref overallImageIndex, false, vanishingPoints);
             }
         }
 
-         int mymodn(int i, int n)
+        int Modn(int i, int n)
         {
             int returnVal = i % (n);
             return returnVal;
         }
 
-         void applyVector(int n, Card[,] cards, Vector v, ref int overallImageIndex, bool vertical, List<Card> vanishingPoints)
+        void ApplyVector(int n, Card[,] cards, Vector v, ref int overallImageIndex, bool vertical, List<Card> vanishingPoints)
         {
             int startXCoord = 0;
             int startYCoord = 0;
@@ -125,8 +120,8 @@ namespace DobbleConsoleProject
                 {
                     //Console.WriteLine("(" + (startXCoord + i * v.x) + "," + (startYCoord + i * v.y + curImgIndex) + ")");
 
-                    cards[mymodn(startXCoord + i * v.x + (vertical ? curImgIndex : 0), n),
-                          mymodn(startYCoord + i * v.y + (vertical ? 0 : curImgIndex), n)].imageIndexs.Add(overallImageIndex);
+                    cards[Modn(startXCoord + i * v.x + (vertical ? curImgIndex : 0), n),
+                          Modn(startYCoord + i * v.y + (vertical ? 0 : curImgIndex), n)].imageIndexs.Add(overallImageIndex);
                 }
                 imageIndexsForVanishingPoint.Add(overallImageIndex);
                 overallImageIndex++;
@@ -138,7 +133,7 @@ namespace DobbleConsoleProject
 
         }
 
-         void dispCards(int _n, Card[,] _cards, List<Card> _vanishingPoints)
+        void DispCards(int _n, Card[,] _cards, List<Card> _vanishingPoints)
         {
             int n = _n;
             Card[,] inpCards = _cards;
@@ -156,7 +151,6 @@ namespace DobbleConsoleProject
                 {
                     if (inpCards[column, row].imageIndexs.Count > 0)
                     {
-                        //Console.Write(inpCards[row, column].imageIndexs);
                         int i = 0;
                         foreach (int cardIndex in inpCards[column, row].imageIndexs)
                         {
@@ -165,13 +159,6 @@ namespace DobbleConsoleProject
                                            cardIndex.ToString());
                             i++;
                         }
-                    }
-                    //Console.Write("B");
-
-                    // Anything not coded for yet, print a 'B'
-                    for (int j = 0; j < n - inpCards[column, row].imageIndexs.Count; j++)
-                    {
-                        Console.Write("B");
                     }
                     Console.Write(" | ");
                 }
@@ -197,7 +184,5 @@ namespace DobbleConsoleProject
                 Console.WriteLine();
             }
         }
-
-
     }
 }

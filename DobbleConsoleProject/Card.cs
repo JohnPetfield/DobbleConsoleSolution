@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace DobbleConsoleProject
 {
     public class Card
     {
         /// Hold images in an array or List, these are the indexs for that array
-        public List<int> imageIndexs; // = new List<int>();
+        public List<int> imageIndexs;
         int x, y;
         bool grid;
 
@@ -23,8 +21,6 @@ namespace DobbleConsoleProject
         {
             imageIndexs = _imageIndexs;
             grid = false; // this constructor is called only by vanishing points (therefore not in n x n grid)
-                          // may not need this field, need to combine grid and vanishing points list
-                          // to create a final list of cards, probably with a 'Deck' class
         }
     }
 }
